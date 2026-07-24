@@ -1,113 +1,96 @@
-# 🏙️ Chicago Public Data Analysis with SQL & SQLite
+# Final Project: House Sales in King County, USA
 
-## 📌 Project Overview
+Projet final réalisé dans le cadre d'un cours de Data Analysis (IBM Skills Network) portant sur l'analyse et la prédiction des
+prix de vente de maisons dans le comté de King County (Seattle, USA), en tant qu'analyste de données pour un fonds d'investissement immobilier.
 
-This project analyzes multiple public datasets from the City of Chicago using **SQL**, **SQLite**, and **Python**. The objective is to answer real-world business and public policy questions by querying census, crime, and public school data.
+## 📋 Description
 
-The project demonstrates database management, SQL querying, data loading, and analytical thinking to extract meaningful insights from large public datasets.
+Ce projet a pour objectif de déterminer le prix de marché d'une maison à partir d'un ensemble de caractéristiques 
+(surface, nombre de chambres, étages, etc.). Le notebook couvre l'ensemble du pipeline d'un projet de data science : import des données, nettoyage, analyse exploratoire, modélisation et évaluation/amélioration de modèles de régression.
 
----
+## 🎯 Objectifs pédagogiques
 
-## 🎯 Project Objectives
+- Importer et explorer un jeu de données réel
+- Nettoyer les données (gestion des valeurs manquantes, suppression de colonnes inutiles)
+- Réaliser une analyse exploratoire de données (EDA) avec des visualisations statistiques
+- Construire des modèles de régression linéaire et Ridge
+- Évaluer et améliorer la performance des modèles (transformation polynomiale, pipelines, split train/test)
 
-- Load multiple datasets into a SQLite database
-- Write SQL queries to answer analytical questions
-- Analyze crime statistics across Chicago communities
-- Explore census and socioeconomic indicators
-- Investigate public school information
-- Demonstrate SQL skills for real-world business scenarios
+## 🗂️ Jeu de données
 
----
+Le dataset contient les prix de vente de maisons dans le comté de King County (incluant Seattle), pour des ventes réalisées entre mai 2014 et mai 2015. Il est basé sur le dataset [House Sales in King County](https://www.kaggle.com/harlfoxem/housesalesprediction) de Kaggle, légèrement modifié pour les besoins du cours.
 
-## 📂 Datasets
+Principales colonnes du dataset :
 
-The project uses three public datasets provided by the City of Chicago:
+| Variable | Description |
+|---|---|
+| id | Identifiant de la maison |
+| date | Date de vente |
+| price | Prix (variable cible) |
+| bedrooms | Nombre de chambres |
+| bathrooms | Nombre de salles de bain |
+| sqft_living | Surface habitable (pieds carrés) |
+| sqft_lot | Surface du terrain |
+| floors | Nombre d'étages |
+| waterfront | Vue sur un point d'eau |
+| view | Qualité de la vue |
+| condition | État général du bien |
+| grade | Note globale attribuée selon le système de notation du comté |
+| sqft_above | Surface hors sous-sol |
+| sqft_basement | Surface du sous-sol |
+| yr_built | Année de construction |
+| yr_renovated | Année de rénovation |
+| zipcode | Code postal |
+| lat / long | Coordonnées géographiques |
+| sqft_living15 / sqft_lot15 | Surfaces habitable/terrain en 2015 (après rénovations éventuelles) |
 
-- 🏘️ Chicago Census Data
-- 🚔 Chicago Crime Data
-- 🏫 Chicago Public Schools
+## 🛠️ Technologies utilisées
 
-These datasets were imported into SQLite tables for analysis.
+- Python 3
+- [pandas](https://pandas.pydata.org/) — manipulation des données
+- [numpy](https://numpy.org/) — calculs numériques
+- [matplotlib](https://matplotlib.org/) & [seaborn](https://seaborn.pydata.org/) — visualisation de données
+- [scikit-learn](https://scikit-learn.org/) — régression linéaire, régression Ridge, pipelines, transformation polynomiale, split train/test
 
----
+## 📦 Installation
 
-## 🛠️ Technologies Used
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn
+```
 
-- SQL
-- SQLite
-- Python
-- Pandas
-- Jupyter Notebook
-- ipython-sql
+## 🚀 Utilisation
 
----
+1. Cloner ce dépôt
+2. Ouvrir le notebook `House_Sales_in_King_Count_USA_20231003_1696291200_jupyterlite.ipynb` avec Jupyter Notebook, JupyterLab, ou VS Code
+3. Exécuter les cellules dans l'ordre
 
-## 📊 Skills Demonstrated
+## 📊 Contenu du notebook
 
-- SQL Queries
-- Database Design
-- SQLite
-- Data Import
-- Data Cleaning
-- Data Exploration
-- Aggregate Functions
-- Joins
-- Subqueries
-- Filtering
-- Sorting
-- Business Data Analysis
+Le notebook est organisé en 5 modules :
 
----
+### Module 1 — Import des données
+Chargement du dataset depuis une URL et exploration initiale (`head()`, `dtypes`, `describe()`).
 
-## 🔍 Business Questions Answered
+### Module 2 — Data Wrangling
+Suppression des colonnes `id` et `Unnamed: 0`, identification et remplacement des valeurs manquantes des colonnes `bedrooms` et `bathrooms` par leur moyenne.
 
-This project answers several analytical questions, including:
+### Module 3 — Exploratory Data Analysis (EDA)
+- Comptage du nombre de maisons par nombre d'étages (`value_counts()`)
+- Boxplot comparant les prix selon la présence d'une vue sur l'eau (`waterfront`)
+- Regplot pour étudier la corrélation entre `sqft_above` et le prix
+- Calcul de la corrélation entre toutes les variables numériques et le prix
 
-- Total number of recorded crimes
-- Communities with low per capita income
-- Crimes involving minors
-- Kidnapping cases involving children
-- Crimes committed at schools
-- Average school safety score by school type
-- Communities with the highest poverty rates
-- Most crime-prone community area
-- Community with the highest hardship index
-- Community with the largest number of crimes
+### Module 4 — Model Development
+- Régression linéaire simple sur `long`, puis sur `sqft_living`
+- Régression linéaire multiple sur une liste de features (floors, waterfront, lat, bedrooms, etc.)
+- Construction d'un pipeline (`StandardScaler` + `PolynomialFeatures` + `LinearRegression`)
 
----
+### Module 5 — Model Evaluation and Refinement
+- Séparation des données en jeu d'entraînement et de test (85%/15%)
+- Régression Ridge (alpha = 0.1) évaluée sur le jeu de test
+- Transformation polynomiale de degré 2 combinée à une régression Ridge
 
-## 📈 Key Learning Outcomes
 
-Through this project I learned how to:
+## 📄 Licence
 
-- Build and manage SQLite databases
-- Import CSV datasets into SQL tables
-- Write efficient SQL queries
-- Use aggregate functions and subqueries
-- Perform relational data analysis
-- Extract actionable insights from public datasets
-
----
-
-## 💼 Why This Project Matters
-
-This project showcases practical SQL skills commonly required for **Data Analyst**, **Business Intelligence**, and **Data Analytics** positions. It demonstrates the ability to work with relational databases, perform complex SQL queries, and transform raw public data into meaningful insights.
-
----
-
-## 👩‍💻 Author
-
-**Kaouther Chelbab**
-
-🎓 Master's Degree in Computer Science
-
-📊 IBM Certified Data Analyst
-
-💼 Data Analyst | SQL | Python | Power BI | Business Intelligence | Web Developer
-
-Linkedin profile :
-www.linkedin.com/in/kaouther-c-505a21360
-
----
-
-## ⭐ If you found this project useful, feel free to star the repository!
+Ce notebook est basé sur un projet éducatif © IBM Corporation 2020, utilisé ici à des fins d'apprentissage personnel.
